@@ -12,10 +12,12 @@ export const useAutoPlay = (
     const videoEl = videoRef.current;
 
     const autoPlayerHandler = () => {
-      videoEl?.play().catch(() => {
+      videoEl?.play().catch(err => {
+        console.log('first auto play error:', err);
         onError(EVideoError.AUTO_PLAY_ERROR);
         videoEl.muted = true;
-        videoEl.play().catch(() => {
+        videoEl.play().catch(err => {
+          console.log('second auto play error:', err);
           onError(EVideoError.AUTO_PLAY_PERMISSION_ERROR);
         });
       });
